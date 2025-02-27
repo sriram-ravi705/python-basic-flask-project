@@ -18,7 +18,7 @@ spec:
         - name: python-app-container
           image: sriramravi477/python_project:latest
           ports: 
-            containerPort: 5000
+            containerPort: 8080
 
 ---
 
