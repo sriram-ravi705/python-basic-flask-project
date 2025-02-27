@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-app-deployment
+  labels:
+    app: python
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: python
+  template:
+    metadata:
+      labels:
+        app: python
+    spec:
+      containers:
+        - name: python-app-container
+          image: sriramravi477/python_project:latest
+          ports: 
+            containerPort: 5000
+
+---
+
+apiVersion: v1 
+kind: Service 
+metadata:
+  name: python-app-service
+spec:
+  selector:
+      app: python
+  ports: 
+    - protocol: TCP # load balancer protocol
+      port: 80 # load balancer target port
+      targetPort: 5000 # container port
+      nodePort: 30001 # host port
+  type: LoadBalancer
